@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:drawable="@drawable/btn_press" />
+</selector>
+<!-- From: file:/H:/AndroidStuiod_0.8.0/Vanrui_Weather/Vanrui_Weather/app/src/main/res/drawable/hot_area_press.xml -->

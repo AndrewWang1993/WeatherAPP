@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/welcome_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.wangxm_wr.app3.WelcomeActivity">
+
+    <ImageView
+        android:id="@+id/welcome_bg"
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:layout_height="match_parent"
+        android:src="@drawable/morning" />
+
+
+    <ImageView
+        android:id="@+id/welcome_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:src="@drawable/ic_launcher"
+        android:scaleType="center"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="30dp"
+        android:textColor="@color/white"
+        android:layout_below="@+id/welcome_iv"
+        android:text="万睿天气"
+        android:textSize="40sp" />
+
+</RelativeLayout>

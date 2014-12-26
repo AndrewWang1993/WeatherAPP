@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\build\intermediates\pre-dexed\debug\pinyin4j-2.5.0-eff9039181144b858d698b2b279833d082d298f1.jar"
+        jar="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\libs\pinyin4j-2.5.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="ae353005f973da1cd8545b54354504c2503f6865"/>
+    <item
+        dex="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\build\intermediates\pre-dexed\debug\commons-io-2.4-ce27d887db244292cd873d3d396f42ddab6d2591.jar"
+        jar="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\libs\commons-io-2.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad"/>
+    <item
+        dex="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-1f90012d32b8f16e23cce72078f867bb38e3f820.jar"
+        jar="D:\SoftWare\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156"/>
+    <item
+        dex="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\build\intermediates\pre-dexed\debug\gson-2.2.4-4816d59612372a7ab4e395bb0abcbb8fc2bfda27.jar"
+        jar="C:\Users\wangxm-wr\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.2.4\a60a5e993c98c864010053cb901b7eab25306568\gson-2.2.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568"/>
+    <item
+        dex="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\build\intermediates\pre-dexed\debug\nineoldandroids-2.4.0-2-c0ed889417bf181c7a1cd6c0030484462560a2e6.jar"
+        jar="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\libs\nineoldandroids-2.4.0-2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7"/>
+    <item
+        dex="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\build\intermediates\pre-dexed\debug\locSDK_3.3-f5e02a7f1aec4cbf48c3e18bb784cb90ea7f5bf6.jar"
+        jar="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\libs\locSDK_3.3.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="590d32bdf5bb37ee372a21696b8f7853b224e31f"/>
+
+</pre-dex-items>

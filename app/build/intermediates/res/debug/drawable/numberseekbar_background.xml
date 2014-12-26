@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+ 	<!-- 背景图 -->
+	<item android:id="@+android:id/background" android:drawable="@drawable/bar_dn" />
+	<!-- 第二进度图 -->
+	<item android:id="@+android:id/SecondaryProgress" android:drawable="@drawable/bar_up" />
+	<!-- 进度度 -->
+	<item android:id="@+android:id/progress" android:drawable="@drawable/bar_dn" />
+
+</layer-list><!-- From: file:/H:/AndroidStuiod_0.8.0/Vanrui_Weather/Vanrui_Weather/app/src/main/res/drawable/numberseekbar_background.xml -->

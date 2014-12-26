@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="main" >
+        <source path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\assets" >
+            <file
+                name="city.db"
+                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\assets\city.db" />
+            <file
+                name="shenzhengif.gif"
+                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\assets\shenzhengif.gif" />
+        </source>
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\debug\assets" />
+    </dataSet>
+
+</merger>

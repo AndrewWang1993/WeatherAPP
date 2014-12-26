@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/main_title" />
+
+    <!--<com.mGifLibrary.GifImageView-->
+        <!--android:id="@+id/gifImageView"-->
+        <!--android:layout_below="@id/title"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+
+    <ImageView
+        android:id="@+id/jpgimageview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:layout_below="@id/title"
+        android:src="@drawable/bg_1"/>
+        <!--android:visibility="gone"-->
+
+        <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/title"
+
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/biz_plugin_weather_paddingTopAndBottom">
+        <!--android:background="@drawable/shenzhen4"-->
+
+
+        <include
+            android:id="@+id/weather_today"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/biz_plugin_weather_item_first" />
+
+        <ImageView
+            android:id="@+id/divider"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/base_list_divider_drawable"
+            android:visibility="gone" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/biz_weather_pager_height"
+            android:layout_marginTop="5dip"
+            android:overScrollMode="never"
+            android:paddingLeft="@dimen/biz_plugin_weather_paddingLeftAndRight"
+            android:paddingRight="@dimen/biz_plugin_weather_paddingLeftAndRight" />
+
+        <com.main.indicator.CirclePageIndicator xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/indicator"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5.0dip" />
+    </LinearLayout>
+
+    <!--   <LinearLayout
+          android:id="@+id/adLayout"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:gravity="center_horizontal" >
+      </LinearLayout>
+   -->
+</RelativeLayout><!-- From: file:/H:/AndroidStuiod_0.8.0/Vanrui_Weather/Vanrui_Weather/app/src/main/res/layout/activity_main.xml -->

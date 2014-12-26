@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chart_Relativelayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_4">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/main_title" />
+
+    <com.github.mikephil.chartLibrary.charts.LineChart
+        android:id="@+id/chart1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/seekBar1" />
+
+
+    <!--<SeekBar-->
+    <!--android:id="@+id/seekBar1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_margin="8dp"-->
+    <!--android:layout_marginBottom="20dp"-->
+    <!--android:layout_toLeftOf="@+id/tvXMax"-->
+    <!--android:layout_marginRight="5dp"-->
+    <!--android:max="20"-->
+    <!--android:paddingBottom="12dp" />-->
+
+    <com.main.apapter.NumberSeekBar
+        android:id="@+id/seekBar1"
+        style="@style/NumberProgressBar_Default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_toLeftOf="@+id/tvXMax"
+        android:paddingBottom="15dp"
+        android:focusable="false"
+        android:max="15"
+        android:thumb="@drawable/thumb_bar"
+        android:progressDrawable="@drawable/numberseekbar_background"
+        android:indeterminate="false" />
+
+
+    <TextView
+        android:id="@+id/tvXMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/seekBar1"
+        android:layout_alignParentRight="true"
+        android:text="历史8天温度"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:gravity="right"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+</RelativeLayout>
+<!-- From: file:/H:/AndroidStuiod_0.8.0/Vanrui_Weather/Vanrui_Weather/app/src/main/res/layout/activity_linechart.xml -->

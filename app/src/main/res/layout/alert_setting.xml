@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:text="自动控制除霾新风系统" />
+
+        <CheckBox
+android:id="@+id/setting_cb"
+            android:layout_marginLeft="340dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="7dp"
+        android:layout_height="3dp"
+        android:layout_width="match_parent"
+        android:background="?android:attr/listDivider"   />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_marginTop="7dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="自动检测室内空气间隔(分钟)"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/setting_et"
+            android:layout_marginLeft="255dp"
+            android:layout_width="wrap_content"
+            android:selectAllOnFocus="true"
+            android:minWidth="55dp"
+            android:maxWidth="100dp"
+            android:maxLines="1"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="30" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="7dp"
+        android:layout_height="3dp"
+        android:layout_width="match_parent"
+        android:background="?android:attr/listDivider"   />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_marginTop="7dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/setting_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="手动控制除霾新风系统"
+            android:textSize="30sp" />
+
+        <Switch
+            android:id="@+id/setting_sw"
+            android:layout_marginLeft="250dp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:checked="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/setting_bt_cl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+
+            android:text="取消"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/setting_bt_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="确定"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>
