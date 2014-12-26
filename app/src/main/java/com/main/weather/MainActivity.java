@@ -84,7 +84,7 @@ import com.main.util.SharePreferenceUtil;
 import com.main.util.T;
 import com.main.util.TimeUtil;
 
-import com.xxmassdeveloper.myChart.*;
+import com.myChart.*;
 
 
 public class MainActivity extends FragmentActivity implements

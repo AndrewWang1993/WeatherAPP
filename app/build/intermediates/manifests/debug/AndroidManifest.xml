@@ -44,8 +44,8 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
-        <activity android:name="com.xxmassdeveloper.myChart.WeathreChartActivity" />
-        <activity android:name="com.xxmassdeveloper.myChart.Pm25ChartActivity" />
+        <activity android:name="com.myChart.WeathreChartActivity" />
+        <activity android:name="com.myChart.Pm25ChartActivity" />
         <activity android:name="com.main.weather.WelcomeActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
