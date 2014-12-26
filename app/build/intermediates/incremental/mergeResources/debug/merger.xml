@@ -584,6 +584,26 @@
                 qualifiers="xhdpi-v4"
                 type="drawable" />
             <file
+                name="bg_1"
+                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\bg_1.jpg"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="bg_2"
+                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\bg_2.jpg"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="bg_3"
+                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\bg_3.jpg"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
+                name="bg_4"
+                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\bg_4.jpg"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
                 name="biz_plugin_weather_0_50"
                 path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\biz_plugin_weather_0_50.png"
                 qualifiers="xhdpi-v4"
@@ -749,6 +769,11 @@
                 qualifiers="xhdpi-v4"
                 type="drawable" />
             <file
+                name="pc1"
+                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\pc1.jpg"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
                 name="search_box_cancel_click"
                 path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\search_box_cancel_click.png"
                 qualifiers="xhdpi-v4"
@@ -784,6 +809,11 @@
                 qualifiers="xhdpi-v4"
                 type="drawable" />
             <file
+                name="title_setting"
+                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\title_setting.png"
+                qualifiers="xhdpi-v4"
+                type="drawable" />
+            <file
                 name="title_share"
                 path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\title_share.png"
                 qualifiers="xhdpi-v4"
@@ -806,6 +836,11 @@
             <file
                 name="activity_welcome"
                 path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\layout\activity_welcome.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="alert_setting"
+                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\layout\alert_setting.xml"
                 qualifiers=""
                 type="layout" />
             <file
@@ -3110,41 +3145,6 @@ match_parent
                 path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\xml\weather_widget_4x2.xml"
                 qualifiers=""
                 type="xml" />
-            <file
-                name="title_setting"
-                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\title_setting.png"
-                qualifiers="xhdpi-v4"
-                type="drawable" />
-            <file
-                name="alert_setting"
-                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\layout\alert_setting.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="bg_4"
-                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\bg_4.jpg"
-                qualifiers="xhdpi-v4"
-                type="drawable" />
-            <file
-                name="bg_1"
-                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\bg_1.jpg"
-                qualifiers="xhdpi-v4"
-                type="drawable" />
-            <file
-                name="bg_2"
-                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\bg_2.jpg"
-                qualifiers="xhdpi-v4"
-                type="drawable" />
-            <file
-                name="bg_3"
-                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\bg_3.jpg"
-                qualifiers="xhdpi-v4"
-                type="drawable" />
-            <file
-                name="pc1"
-                path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\src\main\res\drawable-xhdpi\pc1.jpg"
-                qualifiers="xhdpi-v4"
-                type="drawable" />
         </source>
         <source path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\build\generated\res\rs\debug" />
         <source path="H:\AndroidStuiod_0.8.0\Vanrui_Weather\Vanrui_Weather\app\build\generated\res\generated\debug" />
