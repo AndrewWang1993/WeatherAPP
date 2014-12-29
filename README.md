@@ -1,4 +1,4 @@
 WeatherAPP
 ==========
 
-A Weather APP provide weather 7days forcast,weather alert and 15days history tempure pm2.5 data review,and automatic control fliter pm2.5 device to purify indoors air by air condition in house.
+A Weather APP, which provides weather 7 days weather forcast, weather alert and 15 days history tempure pm2.5 data review,and automatic control air fliter device to purify indoors air based on data provided by moji weather.
