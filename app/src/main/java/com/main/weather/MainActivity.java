@@ -121,7 +121,7 @@ public class MainActivity extends FragmentActivity implements
     private LinearLayout r2;
     private City mNewIntentCity;
     private WeatherPagerAdapter mWeatherPagerAdapter;
-    private Thread weatherUpdate, autoControl;
+    private Thread weatherUpdate, autoControl, settingTime;
 
     private GifImageView gifImageView;
 
@@ -176,13 +176,15 @@ public class MainActivity extends FragmentActivity implements
                             T.show(getApplicationContext(), "除霾机已关闭", Toast.LENGTH_SHORT);
 
                         }
-                    } else {
+                    } else if (msg.arg1 == 1) {
                         if (msg.arg2 == 0) {
                             T.show(getApplicationContext(), "除霾机开启未成功", Toast.LENGTH_SHORT);
 
                         } else {
                             T.show(getApplicationContext(), "除霾机已开启", Toast.LENGTH_SHORT);
                         }
+                    } else {
+                        T.show(getApplicationContext(), "过热保护开启，除霾机已关闭", Toast.LENGTH_SHORT);
                     }
                     break;
                 default:
@@ -207,6 +209,7 @@ public class MainActivity extends FragmentActivity implements
         initView();
         weatherUpdate.start();  //开启自动更新天气线程
         autoControl.start();    //开启检测室内空气并自动开关除霾设备线程
+        settingTime.start();    //开启定时线程
 
     }
 
@@ -338,16 +341,18 @@ public class MainActivity extends FragmentActivity implements
         autoControl = new Thread() {
             @Override
             public void run() {
+                super.run();
                 while (true) {
                     try {
                         final SharedPreferences sharedPreferences = getSharedPreferences("controlSetting", Context.MODE_WORLD_WRITEABLE);
                         autoCheckAir = sharedPreferences.getBoolean("autoControl", true);
-                        int timeInterval = Integer.valueOf(sharedPreferences.getString("time", 30 + ""));
-                        int result = -1;
+                        int timeInterval = Integer.valueOf(sharedPreferences.getString("time", 2 + ""));
+                        int outDoorPm25 = Integer.parseInt(mCurPm2d5.getPm2_5_24h());
+                        int pm25 = mCurAirBall.getPm25();                     //获取室内PM2.5数据
+                        int result = -1;                                     //除霾机是否开关成功
                         if (autoCheckAir) {
-                            if (mCurAirBall != null) {
-                                int pm25 = mCurAirBall.getPm25();                     //获取室内PM2.5数据
-                                int status=new Json_Operation().getAirFilterStatus(); //获取除霾机当前开关状态
+                            if (mCurAirBall != null) {                       //有室内空气果
+                                int status = new Json_Operation().getAirFilterStatus(); //获取除霾机当前开关状态
                                 Message meg = new Message();
                                 meg.what = MAkINGTOAST;
                                 if (pm25 > 50 && status == 0) {
@@ -364,13 +369,52 @@ public class MainActivity extends FragmentActivity implements
                                 Log.v("autoControl", "no data");
                             }
                         }
-                        sleep(timeInterval * 60 * 1000);
+                        if (outDoorPm25 < pm25 * 2) {                              //当室内pm2.5浓度大于室外浓度的1/2时，提示用户可能没关窗户
+                            Toast.makeText(context, "根据室内外PM2.5浓度对比，您可能没关窗", Toast.LENGTH_SHORT).show();
+                        }
+                        sleep(timeInterval * 60 * 60 * 1000);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
         };
+
+        /**
+         * 定时除霾机关闭的时间
+         */
+        settingTime = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                final SharedPreferences sharedPreferences = getSharedPreferences("controlSetting", Context.MODE_WORLD_WRITEABLE);
+                while (true) {                               //此处应该加上判断Dialog中开关有没有打开的变量
+                    autoCheckAir = sharedPreferences.getBoolean("autoControl", true);
+                    int timeInterval = Integer.valueOf(sharedPreferences.getString("time", 2 + ""));
+                    boolean autoShutDown = sharedPreferences.getBoolean("heartProtected", true);
+                    if (autoShutDown && timeInterval > 12) {  //过热保护
+                        timeInterval = 12;
+                    }
+                    if (!autoCheckAir) {
+                        try {
+                            sleep(timeInterval * 60 * 60 * 1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    Message meg = new Message();
+                    int result = new Json_Operation().controlAirFliter("0"); //关闭除霾设备
+                    if (timeInterval != 12) {
+                        meg.arg1 = 0;
+                        meg.arg2 = result;
+                    } else {
+                        meg.arg1=3;
+                    }
+                    mHandler.sendMessage(meg);  //发TOAST
+                }
+            }
+        };
+
     }
 
     private void updateWeather(final boolean isRefresh) {
@@ -514,6 +558,13 @@ public class MainActivity extends FragmentActivity implements
             ConfigCache.setUrlCache(result, url);
     }
 
+    /**
+     * 解析pm2.5的Json返回值
+     *
+     * @param url            返回pm2.5数据的网址，便于以后缓存数据
+     * @param result         返回的结果
+     * @param isRefreshPm2d5 是否重新从网页获取
+     */
     private void parsePm2d5Info(String url, String result,
                                 boolean isRefreshPm2d5) {
         mCurPm2d5 = null;
@@ -551,7 +602,13 @@ public class MainActivity extends FragmentActivity implements
     }
 
 
-    // 把信息保存到文件中
+    /**
+     * 把信息保存到文件中
+     *
+     * @param result   要存储的结果
+     * @param fileName 文件名
+     * @return 是否成功
+     */
     private boolean save2File(String result, String fileName) {
         try {
             FileOutputStream fos = MainActivity.this.openFileOutput(fileName,
@@ -789,6 +846,10 @@ public class MainActivity extends FragmentActivity implements
             // do nothing
         }
 
+        /**
+         * 获取当地位置的回调函数
+         * @param location 位置信息的对象
+         */
         @Override
         public void onReceiveLocation(BDLocation location) {
             // mActionBar.setProgressBarVisibility(View.GONE);
@@ -819,6 +880,13 @@ public class MainActivity extends FragmentActivity implements
         }
     };
 
+    /**
+     * 返回城市选择界面选择的城市
+     *
+     * @param requestCode 请求码
+     * @param resultCode  返回码
+     * @param data        返回的对象
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0 && resultCode == RESULT_OK) {
             mNewIntentCity = (City) data.getSerializableExtra("city");
@@ -831,6 +899,9 @@ public class MainActivity extends FragmentActivity implements
         // do nothing
     }
 
+    /**
+     * 网络状态改变弹出提示框
+     */
     @Override
     public void onNetChange() {
         if (NetUtil.getNetworkState(this) == NetUtil.NETWORN_NONE)
@@ -861,7 +932,7 @@ public class MainActivity extends FragmentActivity implements
                 WindowManager.LayoutParams lp = dialogWindow.getAttributes();
                 dialogWindow.setGravity(Gravity.CENTER);
                 lp.width = 800; // 宽度
-                lp.height = 370; // 高度
+                lp.height = 450; // 高度
                 lp.alpha = 0.9f; // 透明度
                 dialogWindow.setAttributes(lp);
                 dialog.show();
@@ -870,19 +941,25 @@ public class MainActivity extends FragmentActivity implements
                 final EditText setting_et = (EditText) dialog.findViewById(R.id.setting_et);
                 final Switch setting_sw = (Switch) dialog.findViewById(R.id.setting_sw);
                 final TextView setting_tv = (TextView) dialog.findViewById(R.id.setting_tv);
+                final TextView setting_tv2 = (TextView) dialog.findViewById(R.id.setting_tv2);
+                final CheckBox setting_hp = (CheckBox) dialog.findViewById(R.id.setting_hp);
                 Button setting_bt_cl = (Button) dialog.findViewById(R.id.setting_bt_cl);
                 Button setting_bt_ok = (Button) dialog.findViewById(R.id.setting_bt_ok);
 
 
                 setting_cb.setChecked(sharedPreferences.getBoolean("autoControl", true));
-                setting_et.setText(sharedPreferences.getString("time", 30 + ""));
+                setting_et.setText(sharedPreferences.getString("time", 2 + ""));
                 setting_sw.setChecked(sharedPreferences.getBoolean("manualControl", false));
+                setting_hp.setChecked(sharedPreferences.getBoolean("heartProtected", true));
 
                 setting_et.setSelection(setting_et.length());
 
                 if (setting_cb.isChecked()) {
                     setting_tv.setTextColor(Color.DKGRAY);
+                    setting_tv2.setTextColor(Color.DKGRAY);
                     setting_sw.setEnabled(false);
+                    setting_et.setEnabled(false);
+                    setting_tv2.setEnabled(false);
                 }
 
                 setting_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -890,12 +967,35 @@ public class MainActivity extends FragmentActivity implements
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         if (isChecked) {
                             setting_tv.setTextColor(Color.DKGRAY);
+                            setting_tv2.setTextColor(Color.DKGRAY);
+                            setting_et.setEnabled(false);
+                            setting_tv2.setEnabled(false);
                             setting_sw.setEnabled(false);
                         } else {
                             setting_tv.setTextColor(Color.WHITE);
+                            setting_tv2.setTextColor(Color.WHITE);
                             setting_sw.setEnabled(true);
+                            setting_et.setEnabled(true);
+                            setting_tv2.setEnabled(true);
+                            suggestAlertDiaglog();
                         }
                     }
+
+                    private void suggestAlertDiaglog() {
+                        int outDoorPm25 = Integer.parseInt(mCurPm2d5.getPm2_5_24h());
+                        int guessIndoorPm25 = Integer.parseInt(mCurPm2d5.getPm2_5_24h()) / 2;
+                        if (outDoorPm25 > 100) {
+                            guessIndoorPm25 = Integer.parseInt(mCurPm2d5.getPm2_5_24h()) / 3;
+                        }
+                        int time = (int) Math.ceil((float) guessIndoorPm25 / 30);
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("建议开启时间")
+                                .setMessage("您没有安装室内空气果，根据室外空气数据的估计结果建议除霾机开启" + time + "小时")
+                                .show();
+                        setting_et.setText(time + "");
+                    }
+
+
                 });
 
                 setting_bt_cl.setOnClickListener(new OnClickListener() {
@@ -911,6 +1011,7 @@ public class MainActivity extends FragmentActivity implements
                         editor.putBoolean("autoControl", setting_cb.isChecked());
                         editor.putString("time", setting_et.getText().toString());
                         editor.putBoolean("manualControl", setting_sw.isChecked());
+                        editor.putBoolean("heartProtected", setting_hp.isChecked());
                         editor.commit();//提交修改
                         Toast.makeText(getApplicationContext(), "设置已保存", Toast.LENGTH_LONG).show();
                         dialog.dismiss();

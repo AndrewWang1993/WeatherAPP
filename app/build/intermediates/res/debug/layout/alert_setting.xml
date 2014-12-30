@@ -18,8 +18,9 @@
             android:textColor="@color/white"
             android:text="自动控制除霾新风系统" />
 
+
         <CheckBox
-android:id="@+id/setting_cb"
+            android:id="@+id/setting_cb"
             android:layout_marginLeft="340dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -29,7 +30,7 @@ android:id="@+id/setting_cb"
         android:layout_marginTop="7dp"
         android:layout_height="3dp"
         android:layout_width="match_parent"
-        android:background="?android:attr/listDivider"   />
+        android:background="?android:attr/listDivider" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,15 +41,16 @@ android:id="@+id/setting_cb"
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/setting_tv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="自动检测室内空气间隔(分钟)"
+            android:text="手动模式定时(小时)"
             android:textSize="30sp" />
 
         <EditText
             android:id="@+id/setting_et"
-            android:layout_marginLeft="255dp"
+            android:layout_marginLeft="375dp"
             android:layout_width="wrap_content"
             android:selectAllOnFocus="true"
             android:minWidth="55dp"
@@ -56,7 +58,7 @@ android:id="@+id/setting_cb"
             android:maxLines="1"
             android:layout_height="wrap_content"
             android:textSize="30sp"
-            android:text="30" />
+            android:text="2" />
 
     </LinearLayout>
 
@@ -64,7 +66,7 @@ android:id="@+id/setting_cb"
         android:layout_marginTop="7dp"
         android:layout_height="3dp"
         android:layout_width="match_parent"
-        android:background="?android:attr/listDivider"   />
+        android:background="?android:attr/listDivider" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -86,6 +88,45 @@ android:id="@+id/setting_cb"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:checked="true" />
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="7dp"
+        android:layout_height="3dp"
+        android:layout_width="match_parent"
+        android:background="?android:attr/listDivider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@color/white"
+                android:text="过热保护" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@color/base_tip_color"
+                android:text="连续运行时间超过12小时自动关闭" />
+        </LinearLayout>
+
+
+        <CheckBox
+            android:id="@+id/setting_hp"
+            android:layout_marginLeft="420dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
