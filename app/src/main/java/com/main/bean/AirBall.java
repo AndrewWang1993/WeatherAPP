@@ -13,7 +13,7 @@ public class AirBall {
     @Expose
     private int humidity;
     @Expose
-    private int pm25;
+    private int pm25=0;
     @Expose
     private int temp;
     @Expose

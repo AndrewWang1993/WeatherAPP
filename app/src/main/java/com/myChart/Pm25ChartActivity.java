@@ -366,7 +366,6 @@ public class Pm25ChartActivity extends DemoBase implements OnSeekBarChangeListen
                 if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
                     // 取得返回的数据
                     strResult = EntityUtils.toString(httpResponse.getEntity());
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -378,7 +377,6 @@ public class Pm25ChartActivity extends DemoBase implements OnSeekBarChangeListen
         th = new Thread() {
             @Override
             public void run() {
-
                 try {
                     synchronized (this) {
                         getRecord(isfresh);
@@ -389,7 +387,6 @@ public class Pm25ChartActivity extends DemoBase implements OnSeekBarChangeListen
                 }
 
             }
-
         };
         th.start();
     }

@@ -121,7 +121,7 @@ public class MainActivity extends FragmentActivity implements
     private LinearLayout r2;
     private City mNewIntentCity;
     private WeatherPagerAdapter mWeatherPagerAdapter;
-    private Thread weatherUpdate, autoControl, settingTime;
+    private Thread weatherUpdate, autoControl, settingTime, thUpdPm25, thUpdAirball;
 
     private GifImageView gifImageView;
 
@@ -208,6 +208,11 @@ public class MainActivity extends FragmentActivity implements
         initData();
         initView();
         weatherUpdate.start();  //开启自动更新天气线程
+        try {
+            weatherUpdate.join(800); //等待数据获取
+        } catch (Exception e) {
+            Log.v("Thread error", "Join failure");
+        }
         autoControl.start();    //开启检测室内空气并自动开关除霾设备线程
         settingTime.start();    //开启定时线程
 
@@ -313,7 +318,7 @@ public class MainActivity extends FragmentActivity implements
                 super.run();
                 while (true) {
                     try {
-                        int dely = 300 - mfactory;  //随着时间波动变小
+                        int dely = 300 - mfactory;  //随着时间波动变小,避免同时访问服务器
                         if (mfactory < 300) {
                             mfactory += 5;
                         }
@@ -321,12 +326,12 @@ public class MainActivity extends FragmentActivity implements
                             dely++;
                         }
                         int intervalTime = 30 * 60 + new Random().nextInt(dely);
-                        Thread.sleep(intervalTime * 1000);
                         getWeatherInfo(true);
                         getSimpleWeatherInfo(true);
                         getPm2d5Info(true);
                         getAirBallInfo(true);
                         mHandler.sendEmptyMessage(GET_WEATHER_RESULT);
+                        Thread.sleep(intervalTime * 1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -347,11 +352,22 @@ public class MainActivity extends FragmentActivity implements
                         final SharedPreferences sharedPreferences = getSharedPreferences("controlSetting", Context.MODE_WORLD_WRITEABLE);
                         autoCheckAir = sharedPreferences.getBoolean("autoControl", true);
                         int timeInterval = Integer.valueOf(sharedPreferences.getString("time", 2 + ""));
-                        int outDoorPm25 = Integer.parseInt(mCurPm2d5.getPm2_5_24h());
-                        int pm25 = mCurAirBall.getPm25();                     //获取室内PM2.5数据
-                        int result = -1;                                     //除霾机是否开关成功
+
+                        try {
+                            mCurPm2d5.getPm2_5_24h();
+                            mCurAirBall.getPm25();
+                        } catch (NullPointerException e) {
+                            getPm2d5Info(true);
+                            getAirBallInfo(true);
+                            Log.v("NullPointException", "retrieve air data");
+                        }
+
+                        int outDoorPm25 = Integer.parseInt(mCurPm2d5.getPm2_5_24h());   //获取室外PM2.5数据
+                        int pm25 = mCurAirBall.getPm25();                               //获取室内PM2.5数据
+                        int result = -1;                                                //除霾机是否开关成功
                         if (autoCheckAir) {
-                            if (mCurAirBall != null) {                       //有室内空气果
+                            Log.v("kk", "dddd");
+                            if (mCurAirBall.getPm25() != 0) {                                  //有室内空气果
                                 int status = new Json_Operation().getAirFilterStatus(); //获取除霾机当前开关状态
                                 Message meg = new Message();
                                 meg.what = MAkINGTOAST;
@@ -364,9 +380,8 @@ public class MainActivity extends FragmentActivity implements
                                 }
                                 meg.arg2 = result;
                                 mHandler.sendMessage(meg);
-                                Log.v("autoControl", String.valueOf(mCurAirBall.getPm25()));
                             } else {
-                                Log.v("autoControl", "no data");
+                                Log.v("autoControl", "no indoors air data");
                             }
                         }
                         if (outDoorPm25 < pm25 * 2) {                              //当室内pm2.5浓度大于室外浓度的1/2时，提示用户可能没关窗户
@@ -398,19 +413,25 @@ public class MainActivity extends FragmentActivity implements
                     if (!autoCheckAir) {
                         try {
                             sleep(timeInterval * 60 * 60 * 1000);
+                            Message meg = new Message();
+                            int result = new Json_Operation().controlAirFliter("0"); //关闭除霾设备
+                            if (timeInterval != 12) {
+                                meg.arg1 = 0;
+                                meg.arg2 = result;
+                            } else {
+                                meg.arg1 = 3;
+                            }
+                            mHandler.sendMessage(meg);  //发TOAST
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
-                    Message meg = new Message();
-                    int result = new Json_Operation().controlAirFliter("0"); //关闭除霾设备
-                    if (timeInterval != 12) {
-                        meg.arg1 = 0;
-                        meg.arg2 = result;
-                    } else {
-                        meg.arg1=3;
+                    try {
+                        sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    mHandler.sendMessage(meg);  //发TOAST
+
                 }
             }
         };
@@ -454,6 +475,7 @@ public class MainActivity extends FragmentActivity implements
 
         }.start();
     }
+
 
     private void getWeatherInfo(boolean isRefresh) {
         String url = WEATHER_BASE_URL;
@@ -508,6 +530,7 @@ public class MainActivity extends FragmentActivity implements
 
 
     private void getAirBallInfo(boolean isRefresh) {
+
         String urlAirBall = AIRBALL_BASE_URL;
 
         String pmResult = connServerForResult(urlAirBall);
@@ -522,6 +545,8 @@ public class MainActivity extends FragmentActivity implements
 
         parseAirBallInfo(urlAirBall, pmResult, true);
     }
+
+
 
     private void parseWeatherInfo(String url, String result,
                                   boolean isRefreshWeather) {

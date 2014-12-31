@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,7 +57,7 @@ public class Json_Operation {
                 return 0;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.v("JSON", "controlAirFliterJSON error");
             return 0;
         }
 
@@ -65,6 +66,7 @@ public class Json_Operation {
 
     /**
      * 获取除霾机当前状态
+     *
      * @return 成功返回1，失败返回0
      */
     public int getAirFilterStatus() {
@@ -77,16 +79,16 @@ public class Json_Operation {
             JSONObject json = null;
             json = new JSONParser().makeHttpRequest(BuildConfig.TAG_HOST_GET, "POST", params);
             Success = json.getString(TAG_VALUE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assert Success != null;
-        if (Success.equals(TAG_VALUE_SUCCESS)) {
-            return 1;
-        } else if (Success.equals(TAG_VALUE_FAILURE)){
-            return 0;
-        }
 
+            assert Success != null;
+            if (Success.equals(TAG_VALUE_SUCCESS)) {
+                return 1;
+            } else if (Success.equals(TAG_VALUE_FAILURE)) {
+                return 0;
+            }
+        } catch (Exception e) {
+            Log.v("JSON", "getAirFilterStatusJSON error");
+        }
         return 0;
     }
 
